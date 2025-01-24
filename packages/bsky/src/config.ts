@@ -98,6 +98,7 @@ export class ServerConfig {
       ? process.env.BSKY_LABELS_FROM_ISSUER_DIDS.split(',')
       : []
     const bsyncUrl = process.env.BSKY_BSYNC_URL || undefined
+    console.log(bsyncUrl)
     assert(bsyncUrl)
     const bsyncApiKey = process.env.BSKY_BSYNC_API_KEY || undefined
     const bsyncHttpVersion = process.env.BSKY_BSYNC_HTTP_VERSION || '2'

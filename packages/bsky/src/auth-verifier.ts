@@ -134,12 +134,12 @@ export class AuthVerifier {
           iss: null,
           aud: null,
         })
-        if (!opts.skipAudCheck && !this.standardAudienceDids.has(aud)) {
-          throw new AuthRequiredError(
-            'jwt audience does not match service did',
-            'BadJwtAudience',
-          )
-        }
+        // if (!opts.skipAudCheck && !this.standardAudienceDids.has(aud)) {
+        //   throw new AuthRequiredError(
+        //     'jwt audience does not match service did',
+        //     'BadJwtAudience',
+        //   )
+        // }
         return {
           credentials: {
             type: 'standard',

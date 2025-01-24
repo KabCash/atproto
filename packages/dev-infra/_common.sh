@@ -172,10 +172,13 @@ main_docker() {
 
 # Main entry point
 main() {
-  if ! docker ps >/dev/null 2>&1; then
-    echo "Docker unavailable. Running on host."
-    main_native $@
-  else
-    main_docker $@
-  fi
+  # if ! docker ps >/dev/null 2>&1; then
+  #   echo "Docker unavailable. Running on host."
+  #   main_native $@
+  # else
+  #   main_docker $@
+  # fi
+  main_native $@
 }
+
+pg_init

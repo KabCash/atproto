@@ -2,6 +2,8 @@
 
 'use strict'
 
+require('dotenv').config();
+
 const dd = require('dd-trace')
 
 dd.tracer
@@ -51,7 +53,11 @@ const main = async () => {
   assert(env.serviceSigningKey, 'must set BSKY_SERVICE_SIGNING_KEY')
   const signingKey = await Secp256k1Keypair.import(env.serviceSigningKey)
   const bsky = BskyAppView.create({ config, signingKey })
+
+  console.log('About to start')
   await bsky.start()
+
+  console.log('Started')
   // Graceful shutdown (see also https://aws.amazon.com/blogs/containers/graceful-shutdowns-with-ecs/)
   const shutdown = async () => {
     await bsky.destroy()
