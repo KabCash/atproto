@@ -19,7 +19,7 @@ const dataplane = await bsky.DataPlaneServer.create(
 )
 
 const sub = new bsky.RepoSubscription({
-    service: "wss://b19c99a20ad6.ngrok.app",// cfg.repoProvider,
+    service: "wss://uc9c995tn0ad6.ngrok.app",//"wss://social.kabcash.com",
     db,
     idResolver: dataplane.idResolver,
 })
