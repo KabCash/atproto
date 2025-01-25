@@ -1,24 +1,17 @@
-FROM node:18-alpine as build
+FROM node:18-alpine
 
 RUN npm install -g pnpm
 
 WORKDIR /app
-COPY ./*.* ./
+COPY . .
 
 RUN pnpm install --frozen-lockfile > /dev/null
 RUN pnpm build > /dev/null
 RUN rm -rf node_modules
 RUN pnpm install --prod --shamefully-hoist --frozen-lockfile --prefer-offline > /dev/null
 
-WORKDIR services/data-plane
-
-FROM node:18-alpine
-
 RUN apk add --update dumb-init runit
 ENTRYPOINT ["dumb-init", "--"]
-
-WORKDIR /app/services/data-plane
-COPY --from=build /app /app
 
 EXPOSE 3001
 ENV PORT=3001
