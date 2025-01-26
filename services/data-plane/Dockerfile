@@ -3,12 +3,35 @@ FROM node:18-alpine
 RUN npm install -g pnpm
 
 WORKDIR /app
-COPY . .
+COPY ./*.* ./
+# NOTE bsky's transitive dependencies go here: if that changes, this needs to be updated.
+COPY ./tsconfig ./tsconfig
+COPY ./packages/bsky ./packages/bsky
+COPY ./packages/api ./packages/api
+COPY ./packages/common ./packages/common
+COPY ./packages/common-web ./packages/common-web
+COPY ./packages/crypto ./packages/crypto
+COPY ./packages/identity ./packages/identity
+COPY ./packages/sync ./packages/sync
+COPY ./packages/syntax ./packages/syntax
+COPY ./packages/lexicon ./packages/lexicon
+COPY ./packages/repo ./packages/repo
+COPY ./packages/xrpc ./packages/xrpc
+COPY ./packages/xrpc-server ./packages/xrpc-server
+COPY ./services/bsky ./services/bsky
+COPY ./services/data-plane ./services/data-plane
 
-RUN pnpm install --frozen-lockfile > /dev/null
-RUN pnpm build > /dev/null
-RUN rm -rf node_modules
-RUN pnpm install --prod --shamefully-hoist --frozen-lockfile --prefer-offline > /dev/null
+# Copy the global .env file to the bsky folder so it can be used by dotenv
+COPY ./.env ./services/bsky/.env
+
+
+RUN pnpm install --frozen-lockfile
+# > /dev/null
+# RUN pnpm build > /dev/null
+# RUN rm -rf node_modules
+# RUN pnpm install --prod --shamefully-hoist --frozen-lockfile --prefer-offline > /dev/null
+
+WORKDIR services/data-plane
 
 RUN apk add --update dumb-init runit
 ENTRYPOINT ["dumb-init", "--"]

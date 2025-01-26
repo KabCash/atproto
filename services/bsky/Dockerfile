@@ -21,6 +21,9 @@ COPY ./packages/xrpc ./packages/xrpc
 COPY ./packages/xrpc-server ./packages/xrpc-server
 COPY ./services/bsky ./services/bsky
 
+# Copy the global .env file to the bsky folder so it can be used by dotenv
+COPY ./.env ./services/bsky/.env
+
 # install all deps
 RUN pnpm install --frozen-lockfile > /dev/null
 # build all packages with external node_modules

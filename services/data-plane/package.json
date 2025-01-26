@@ -1,6 +1,7 @@
 {
     "name": "bsky-app-view-service",
     "private": true,
+    "type": "module",
     "dependencies": {
       "@atproto/bsky": "workspace:^",
       "@atproto/crypto": "workspace:^",

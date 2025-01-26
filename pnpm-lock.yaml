@@ -1579,6 +1579,9 @@ importers:
       dd-trace:
         specifier: 3.13.2
         version: 3.13.2
+      dotenv:
+        specifier: ^16.0.3
+        version: 16.0.3
 
   services/bsync:
     dependencies:
