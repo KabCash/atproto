@@ -3,13 +3,13 @@ import * as bsky from '@atproto/bsky'
 
 // shared across server, ingester, and indexer in order to share pool, avoid too many pg connections.
 const db = new bsky.Database({
-url: "postgresql://pg:password@127.0.0.1:5433/postgres",
+url: "postgresql://pg:password@db:5432/postgres",
 schema: "public",
 poolSize: 10,
 })
 
 
-// await db.migrateToLatestOrThrow()
+await db.migrateToLatestOrThrow()
 
 
 const dataplane = await bsky.DataPlaneServer.create(

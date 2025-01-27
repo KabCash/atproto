@@ -15,11 +15,26 @@ services:
       retries: 20
   # A persistently-stored postgres database
   db:
-    <<: *db_test
+    # <<: *db_test
+    # environment:
+    #   - POSTGRES_USER=pg
+    #   - POSTGRES_PASSWORD=password
+    # ports:
+    #   - '5432:5432'
+    # healthcheck:
+    #   disable: true
+    image: postgres:14.4-alpine
+    environment:
+      - POSTGRES_USER=pg
+      - POSTGRES_PASSWORD=password
     ports:
-      - '5432:5432'
+      - '5434:5432'
+    # Healthcheck ensures db is queryable when `docker-compose up --wait` completes
     healthcheck:
-      disable: true
+      test: 'pg_isready -U pg'
+      interval: 500ms
+      timeout: 10s
+      retries: 20
     volumes:
       - atp_db:/var/lib/postgresql/data
   # An ephermerally-stored redis cache for single-use test runs
