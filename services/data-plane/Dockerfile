@@ -27,9 +27,9 @@ COPY ./.env ./services/data-plane/.env
 
 RUN pnpm install --frozen-lockfile > /dev/null
 # > /dev/null
-# RUN pnpm build > /dev/null
-# RUN rm -rf node_modules
-# RUN pnpm install --prod --shamefully-hoist --frozen-lockfile --prefer-offline > /dev/null
+RUN pnpm build > /dev/null
+RUN rm -rf node_modules
+RUN pnpm install --prod --shamefully-hoist --frozen-lockfile --prefer-offline > /dev/null
 
 WORKDIR /app/services/data-plane
 
