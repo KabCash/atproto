@@ -21,7 +21,11 @@ export const createDataPlaneClient = (
   baseUrls: string[],
   opts: { httpVersion?: HttpVersion; rejectUnauthorized?: boolean },
 ) => {
-  const clients = baseUrls.map((baseUrl) => createBaseClient(baseUrl, opts))
+  const clients = baseUrls.map((baseUrl) => createBaseClient(baseUrl, opts));
+
+  for(let i = 0; i < baseUrls.length; i++) {
+    console.log(`baseUrls[${i}]=${baseUrls[i]}`)
+  }
   assert(clients.length > 0, 'no clients available')
   return makeAnyClient(Service, (method) => {
     return async (...args) => {
@@ -69,6 +73,9 @@ const createBaseClient = (
   opts: { httpVersion?: HttpVersion; rejectUnauthorized?: boolean },
 ): BaseClient => {
   const { httpVersion = '2', rejectUnauthorized = true } = opts
+
+  console.log(`createBaseClient baseUrl=${baseUrl} httpVersion=${httpVersion} rejectUnauthorized=${rejectUnauthorized}`)
+
   const transport = createGrpcTransport({
     baseUrl,
     httpVersion,
@@ -119,7 +126,9 @@ export const getServiceEndpoint = (
   const endpoint =
     services[opts.id] &&
     services[opts.id].Type === opts.type &&
-    validateUrl(services[opts.id].URL)
+    validateUrl(services[opts.id].URL);
+  
+  console.log(`getServiceEndpoint endpoint=${endpoint}`)
   return endpoint || undefined
 }
 
