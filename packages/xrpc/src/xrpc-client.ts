@@ -59,6 +59,7 @@ export class XrpcClient {
     data?: unknown,
     opts?: CallOptions,
   ): Promise<XRPCResponse> {
+    console.log('call 1')
     const def = this.lex.getDefOrThrow(methodNsid)
     if (!def || (def.type !== 'query' && def.type !== 'procedure')) {
       throw new TypeError(
@@ -75,7 +76,7 @@ export class XrpcClient {
     const reqUrl = constructMethodCallUrl(methodNsid, def, params)
 
     console.log(`reqUrl=${reqUrl}`)
-    
+
     const reqMethod = getMethodSchemaHTTPMethod(def)
     const reqHeaders = constructMethodCallHeaders(def, data, opts)
     const reqBody = encodeMethodCallBody(reqHeaders, data)
