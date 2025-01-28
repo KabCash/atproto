@@ -6,6 +6,7 @@ import { pipethrough } from '../../../../pipethrough'
 
 export default function (server: Server, ctx: AppContext) {
   server.com.atproto.repo.getRecord(async ({ req, params }) => {
+    console.log('handler 2')
     const { repo, collection, rkey, cid } = params
     const did = await ctx.accountManager.getDidForActor(repo)
 
