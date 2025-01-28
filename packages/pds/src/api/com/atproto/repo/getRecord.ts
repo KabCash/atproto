@@ -22,6 +22,7 @@ export default function (server: Server, ctx: AppContext) {
           'RecordNotFound',
         )
       }
+      console.log('handler 3')
       return {
         encoding: 'application/json',
         body: {
@@ -35,6 +36,8 @@ export default function (server: Server, ctx: AppContext) {
     if (!ctx.cfg.bskyAppView) {
       throw new InvalidRequestError(`Could not locate record`)
     }
+
+    console.log('handler 5')
 
     return pipethrough(ctx, req)
   })
