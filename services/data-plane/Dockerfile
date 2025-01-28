@@ -22,16 +22,16 @@ COPY ./services/bsky ./services/bsky
 COPY ./services/data-plane ./services/data-plane
 
 # Copy the global .env file to the bsky folder so it can be used by dotenv
-COPY ./.env ./services/bsky/.env
+COPY ./.env ./services/data-plane/.env
 
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile > /dev/null
 # > /dev/null
 # RUN pnpm build > /dev/null
 # RUN rm -rf node_modules
 # RUN pnpm install --prod --shamefully-hoist --frozen-lockfile --prefer-offline > /dev/null
 
-WORKDIR services/data-plane
+WORKDIR /app/services/data-plane
 
 RUN apk add --update dumb-init runit
 ENTRYPOINT ["dumb-init", "--"]

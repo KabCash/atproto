@@ -1,11 +1,11 @@
 {
-    "name": "bsky-app-view-service",
+    "name": "bsky-data-plane-service",
     "private": true,
     "type": "module",
     "dependencies": {
       "@atproto/bsky": "workspace:^",
       "@atproto/crypto": "workspace:^",
-      "dd-trace": "3.13.2"
+      "dd-trace": "3.13.2",
+      "dotenv": "^16.0.3"
     }
   }
-  
