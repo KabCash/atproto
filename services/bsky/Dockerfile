@@ -49,8 +49,8 @@ ENTRYPOINT ["dumb-init", "--"]
 WORKDIR /app/services/bsky
 COPY --from=build /app /app
 
-EXPOSE 3000
-ENV PORT=3000
+EXPOSE 2584
+ENV PORT=2584
 ENV NODE_ENV=production
 
 # https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
