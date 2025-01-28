@@ -50,6 +50,7 @@ const { ServerConfig, BskyAppView } = require('@atproto/bsky')
 const main = async () => {
   const env = getEnv()
   const config = ServerConfig.readEnv()
+  console.log(config)
   assert(env.serviceSigningKey, 'must set BSKY_SERVICE_SIGNING_KEY')
   const signingKey = await Secp256k1Keypair.import(env.serviceSigningKey)
   const bsky = BskyAppView.create({ config, signingKey })

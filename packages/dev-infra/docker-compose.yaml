@@ -54,16 +54,6 @@ services:
     volumes:
       - atp_redis:/data
 
-  # AppView
-  bsky:
-    build:
-      context: ../..
-      dockerfile: services/bsky/Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - data-plane
-
   # Data Plane
   data-plane:
     build:
@@ -73,6 +63,16 @@ services:
       - "3001:3001"
     depends_on:
       - db
+
+  # AppView
+  bsky:
+    build:
+      context: ../..
+      dockerfile: services/bsky/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - data-plane
 
 volumes:
   atp_db:
