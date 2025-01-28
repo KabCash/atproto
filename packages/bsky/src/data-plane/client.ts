@@ -21,7 +21,11 @@ export const createDataPlaneClient = (
   baseUrls: string[],
   opts: { httpVersion?: HttpVersion; rejectUnauthorized?: boolean },
 ) => {
-  const clients = baseUrls.map((baseUrl) => createBaseClient(baseUrl, opts))
+  const clients = baseUrls.map((baseUrl) => createBaseClient(baseUrl, opts));
+
+  for(let i = 0; i < clients.length; i++) {
+    console.log(`clients[${i}]=${clients[i]}`)
+  }
   assert(clients.length > 0, 'no clients available')
   return makeAnyClient(Service, (method) => {
     return async (...args) => {
@@ -119,7 +123,9 @@ export const getServiceEndpoint = (
   const endpoint =
     services[opts.id] &&
     services[opts.id].Type === opts.type &&
-    validateUrl(services[opts.id].URL)
+    validateUrl(services[opts.id].URL);
+  
+  console.log(`getServiceEndpoint endpoint=${endpoint}`)
   return endpoint || undefined
 }
 
