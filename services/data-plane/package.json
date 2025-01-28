@@ -5,7 +5,6 @@
     "dependencies": {
       "@atproto/bsky": "workspace:^",
       "@atproto/crypto": "workspace:^",
-      "dd-trace": "3.13.2",
-      "dotenv": "^16.0.3"
+      "dd-trace": "3.13.2"
     }
   }
