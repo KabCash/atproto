@@ -964,8 +964,11 @@ export class Hydrator {
         undefined
       )
     } else if (collection === ids.AppBskyFeedGenerator) {
+      let feedGen = (await this.feed.getFeedGens([uri], includeTakedowns));
+
+      console.log(feedGen)
       return (
-        (await this.feed.getFeedGens([uri], includeTakedowns)).get(uri) ??
+        feedGen.get(uri) ??
         undefined
       )
     } else if (collection === ids.AppBskyFeedThreadgate) {

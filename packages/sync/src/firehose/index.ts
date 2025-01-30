@@ -104,6 +104,8 @@ export class Firehose {
           }
           this.opts.runner.trackEvent(parsed.did, parsed.seq, async () => {
             const parsed = await this.parseEvt(evt)
+            console.log('Received event')
+            console.log(parsed)
             for (const write of parsed) {
               try {
                 await this.opts.handleEvent(write)

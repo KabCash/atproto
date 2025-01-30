@@ -22,17 +22,17 @@ export default (db: Database): Partial<ServiceImpl<typeof Service>> => ({
     const [handlesRes, profiles, chatDeclarations] = await Promise.all([
       db.db
         .selectFrom('actor')
-        .leftJoin('actor_state', 'actor_state.did', 'actor.did')
+        // .leftJoin('actor_state', 'actor_state.did', 'actor.did')
         .where('actor.did', 'in', dids)
         .selectAll('actor')
-        .select('actor_state.priorityNotifs')
-        .select([
-          db.db
-            .selectFrom('labeler')
-            .whereRef('creator', '=', ref('actor.did'))
-            .select(sql<true>`${true}`.as('val'))
-            .as('isLabeler'),
-        ])
+        // .select('actor_state.priorityNotifs')
+        // .select([
+        //   db.db
+        //     .selectFrom('labeler')
+        //     .whereRef('creator', '=', ref('actor.did'))
+        //     .select(sql<true>`${true}`.as('val'))
+        //     .as('isLabeler'),
+        // ])
         .execute(),
       getRecords(db)({ uris: profileUris }),
       getRecords(db)({ uris: chatDeclarationUris }),
@@ -50,14 +50,14 @@ export default (db: Database): Partial<ServiceImpl<typeof Service>> => ({
         takenDown: !!row?.takedownRef,
         takedownRef: row?.takedownRef || undefined,
         tombstonedAt: undefined, // in current implementation, tombstoned actors are deleted
-        labeler: row?.isLabeler ?? false,
+        labeler: false, // row?.isLabeler ?? false,
         allowIncomingChatsFrom:
           typeof chatDeclaration?.['allowIncoming'] === 'string'
             ? chatDeclaration['allowIncoming']
             : undefined,
         upstreamStatus: row?.upstreamStatus ?? '',
         createdAt: profiles.records[i].createdAt, // @NOTE profile creation date not trusted in production
-        priorityNotifications: row?.priorityNotifs ?? false,
+        priorityNotifications: false, //row?.priorityNotifs ?? false,
       }
     })
     return { actors }
